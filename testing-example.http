@@ -1,0 +1,43 @@
+# 1) POST - AWS Cognito InitiateAuth
+POST https://cognito-idp.<AWS-REGION>.amazonaws.com/<YOUR_USER_POOL_ID>
+X-Amz-Target: AWSCognitoIdentityProviderService.InitiateAuth
+Content-Type: application/x-amz-json-1.1
+
+{
+    "AuthParameters": {
+        "USERNAME": "<EMAIL>",
+        "PASSWORD": "<PASSWORD>"
+    },
+    "AuthFlow": "USER_PASSWORD_AUTH",
+    "ClientId": "<CLIENT_ID>"
+}
+
+###
+
+# 2) POST - Create VPC (example with JSON body)
+POST  https://<API-URL>/vpcs
+Content-Type: application/json
+Authorization: Bearer <ACCESS_TOKEN>
+
+{
+    "cidrBlock": "10.3.0.0/16",    
+    "subnets": [    
+        {"cidrBlock": "10.3.0.0/24", "az": "us-east-1a"},
+        {"cidrBlock": "10.3.1.0/24", "az": "us-east-1b"},
+        {"cidrBlock": "10.3.2.0/24", "az": "us-east-1c"}
+    ]
+}
+
+###
+
+# 3) GET ALL with Authorization header
+
+GET https://<API-URL>/vpcs
+Authorization: Bearer <ACCESS_TOKEN>
+
+###
+
+# 5) GET Information about a VPC with Authorization header
+
+GET https://<API-URL>/vpcs/<VPC-ID>
+Authorization: Bearer <ACCESS_TOKEN>
